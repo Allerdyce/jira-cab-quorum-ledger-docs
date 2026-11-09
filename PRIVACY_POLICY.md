@@ -1,6 +1,6 @@
 # Privacy policy: CAB Quorum e-Sign & Rovo Release Ledger for Jira
 
-Updated 9 November 2026
+Updated 10 November 2026
 
 This policy describes the Atlassian Marketplace app **CAB Quorum e-Sign & Rovo Release Ledger for Jira** ("the app"), made by EvidencePair LLC ("EvidencePair", "we"). EvidencePair's company privacy policy, which covers our website and email you send us, is at <https://evidencepair.com/privacy/>.
 
@@ -8,7 +8,7 @@ This policy describes the Atlassian Marketplace app **CAB Quorum e-Sign & Rovo R
 
 - The app runs on Atlassian Forge, inside your Jira site. It declares no external egress and no remote services, and it makes requests only to your site's Jira API. Its readiness audit is a fixed set of rules inside the app. It sends nothing to Rovo or any other AI service.
 - It keeps its data in Jira itself, as two Jira entity properties. That data is never sent to EvidencePair.
-- It does not store your users' account IDs. Every signature records the same account ID and signer name, which are fixed values built into the app, whoever signs. The personal data it can hold is text: the Meaning of Signature people type, and a copy of the issue's summary.
+- It stores the Atlassian account ID of each person who signs a stage. It stores no names, email addresses or profiles. The other personal data it can hold is text: the Meaning of Signature people type, and a copy of the issue's summary.
 
 ## What the app stores
 
@@ -18,30 +18,31 @@ This policy describes the Atlassian Marketplace app **CAB Quorum e-Sign & Rovo R
 - a copy of the issue's summary and priority, taken at the latest signature, or at the first audit if nobody has signed yet;
 - a SHA-256 hash of the description's text, and a SHA-256 fingerprint of the issue key, summary, description hash and priority. The description itself is not stored;
 - for each signed stage: its number, role name and code, the Meaning of Signature as typed, when it was signed, the fingerprint at that moment, and two SHA-256 hashes that chain it to the stage before;
-- with each signature, a signer account ID and a signer name. In this version they are the same for every signature: an account ID and a name from the app's built-in test configuration. The app does not record the account ID of the person who clicks Sign;
+- with each signature, the Atlassian account ID of the person who signed it. The app takes it from Atlassian's platform when the person clicks Sign. It stores no name with it. Signatures made by earlier versions of the app instead hold a fixed account ID and name from the app's built-in test configuration, whoever signed; the Reset Quorum Ledger button removes them;
 - the latest readiness audit, which the app also runs at each signature: the score, the verdict, the label it chose, and the result of each of its six checks;
 - whether the signatures are complete and unchanged, the gate status, the final hash of the chain, when the record was last updated, and its size in bytes.
 
-**One project property, `cabQuorumPolicy`, written only from the admin page:**
+**One project property, `cabQuorumPolicy`, which the app reads but never writes:**
 
 - the compliance preset and the name of its framework;
 - the policy settings: whether signing must follow the stage order, whether drift blocks the workflow, whether a Meaning of Signature is required, a minimum number of signers, whether one person may sign every stage, and the minimum readiness score;
 - the four stages, each with its order, ID, role name, code, whether it is required, and its default Meaning of Signature;
 - a project key and ID, when the policy was last updated, and its size in bytes.
 
-The admin page is in Jira's global settings, so it has no project of its own. It always reads and writes this property on the project with ID 10035, a fixed value from the app's built-in test configuration. The app does not check Jira's reply, so the page shows a success message even if Jira saved nothing, for example because your site has no project with that ID. The issue panel and the project page read this property on their own project. The workflow validator reads it on the project named in the event Jira sends, or on project 10035 if the event names none. Where the property does not exist, they use the app's built-in default policy: the FDA 21 CFR Part 11 preset, with one person allowed to sign every stage.
+Writing a project property needs a Jira permission the app does not ask for, so this version has no way to change a project's policy. A project has this property only if someone saved it through Jira's REST API. The issue panel and the workflow validator read it on the issue's own project, and the project page reads it on its own project. The admin page is in Jira's global settings and has no project, so it reads no project's policy. Where the property does not exist, the app uses its built-in default policy: the FDA 21 CFR Part 11 preset, with one person allowed to sign every stage.
 
-**Labels on the issue.** When someone runs the readiness audit, the app removes the labels `rovo-cab-verified` and `cab-drift-quarantined` from the issue, then adds one of them back if the result calls for it. It changes no other issue field, and its screens post no comments.
+**Labels on the issue.** When someone runs the readiness audit, the app removes the labels `rovo-cab-verified` and `cab-drift-quarantined` from the issue, then adds one of them back if the result calls for it. It changes no other issue field, and its screens post no comments. The change is made as the person who ran the audit, so Jira's history shows them as its author.
 
-The app does not look up names, email addresses or profiles. A Meaning of Signature, and the summary the app copies, can contain personal data, and the app stores them as they are.
+The app does not look up names, email addresses or profiles. To show who signed, the issue panel uses Jira's own user display, which shows the person's current name from the stored account ID; the app does not receive or store that name. A Meaning of Signature, and the summary the app copies, can contain personal data, and the app stores them as they are.
 
 ## What the app reads from Jira
 
-- The issue the panel is open on, or the issue being transitioned: its summary, description, priority, status, issue type, subtasks, issue links and labels. It uses the description only to compute a hash, and uses subtasks and blocking links only for their status.
+- The issue the panel is open on, or the issue being transitioned: its summary, description, priority, status, issue type, subtasks, issue links, labels and project. It uses the description only to compute a hash, uses subtasks and blocking links only for their status, and uses the project only to find its policy.
 - That issue's `cabQuorumLedger` property, and the `cabQuorumPolicy` property described above.
-- On the project page and the admin page, the same fields and ledger for issue ITH-1, in whichever project you open them. ITH-1 is a fixed issue key from the app's built-in test configuration. If the app cannot read an issue ITH-1 on your site, the pages show built-in sample values instead.
+- Whether the person using the issue panel may edit the issue, which Jira answers for that person.
+- On the project page, the summary, description, priority, status, subtasks, issue links and `cabQuorumLedger` property of the project's most recently updated issues, up to 500, to list the ones that have a ledger. It uses them the same way as above.
 
-It reads no comments, attachments or user profiles.
+The admin page reads no issues. The app reads no comments, attachments or user profiles. It has no built-in sample issue: if Jira does not return what it asked for, the screen shows Jira's error.
 
 ## Where the data lives
 
@@ -49,20 +50,22 @@ Entity properties are part of your Jira site's data. Atlassian stores them with 
 
 ## Who can see it
 
-Jira shows an entity property to anyone who can view the issue or project it belongs to, through Jira's REST API. Anyone who can see an issue can therefore read its ledger, including the Meaning of Signature text and the copied summary.
+Jira shows an entity property to anyone who can view the issue or project it belongs to, through Jira's REST API. Anyone who can see an issue can therefore read its ledger, including the signers' account IDs, the Meaning of Signature text and the copied summary.
 
-The app sends every request to Jira as the app itself, never as the person using it, so Jira applies the app's permissions to each request. This has two effects:
+The app's screens send every request to Jira as the person using them, so Jira applies that person's own permissions:
 
-- Anyone who can open the issue panel can sign a stage, run the audit (which changes the issue's labels) or reset the ledger (which deletes it), without permission to edit the issue.
-- The project page shows issue ITH-1's key, summary, status and ledger to anyone who can open the app's page in any project, whether or not they can see ITH-1. The admin page, which Jira shows to Jira administrators, shows the same.
+- Signing a stage, running the audit (which changes the issue's labels) and resetting the ledger (which deletes it) need permission to edit the issue. The app checks this with Jira first and refuses if the person does not have it.
+- The project page lists only issues the person can see in Jira.
+
+The workflow validator runs as the app, because Jira runs it during a transition with no signed-in person. It reads the issue, its ledger and the policy, and writes nothing.
 
 ## Retention and deletion
 
-The app keeps both properties until someone deletes them. It has no retention setting, deletes nothing on its own schedule, and has no uninstall step. The Reset Quorum Ledger button in the issue panel deletes that issue's `cabQuorumLedger` property. Deleting an issue or a project deletes its properties. A Jira administrator can delete either property at any time through Jira's REST API, and should do so before uninstalling if the data must go. Labels the audit added stay on issues until someone removes them.
+The app keeps both properties until someone deletes them. It has no retention setting, deletes nothing on its own schedule, and has no uninstall step. The Reset Quorum Ledger button in the issue panel deletes that issue's `cabQuorumLedger` property, including the account IDs of everyone who signed it. Deleting an issue or a project deletes its properties. A Jira administrator can delete either property at any time through Jira's REST API, and should do so before uninstalling if the data must go. Labels the audit added stay on issues until someone removes them.
 
 ## Account closure
 
-The app does not take part in Atlassian's personal data reporting. It stores no account IDs of your users, so it holds nothing keyed to an account that is closed. Personal data in text, such as a name typed into a Meaning of Signature or included in a copied summary, stays until the property or the issue is deleted.
+The app stores the account IDs of people who sign. It does not yet take part in Atlassian's personal data reporting, so it does not learn when an account is closed and does not remove a closed account's ID from the ledgers that person signed. The ID stays until someone resets the ledger or deletes the issue. Personal data in text, such as a name typed into a Meaning of Signature or included in a copied summary, also stays until the property or the issue is deleted.
 
 ## Platform logs
 
