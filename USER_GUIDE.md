@@ -5,8 +5,8 @@
 
 ---
 
-## 2. Configuring Global & Project Governance Policies (`Enterprise CAB Quorum & Non-Repudiation Policy`)
-1. Navigate to **Apps -> Enterprise CAB Quorum & Non-Repudiation Policy** (`jira:adminPage`).
+## 2. Configuring Global & Project Governance Policies (Jira settings, Apps)
+1. Navigate to **Apps -> CAB Quorum e-Sign & Rovo Release Ledger for Jira** (`jira:adminPage`).
 2. Select your active regulatory governance preset:
    - **FDA 21 CFR Part 11 Electronic Signatures** (`§11.50 / §11.70 / §11.200`)
    - **SOX Section 404 ITGC Change Management** (`PCAOB AS 2201`)
@@ -16,8 +16,8 @@
 
 ---
 
-## 3. Signing the 4-Stage Merkle CAB Matrix on Jira Issues (`CAB Quorum e-Sign & Rovo Release Auditor`)
-1. Open any Jira issue or JSM Change / Service Request (e.g., `ITH-1`) and open the **CAB Quorum e-Sign & Rovo Release Auditor** panel.
+## 3. Signing the 4-Stage Merkle CAB Matrix on Jira Issues (issue panel)
+1. Open any Jira issue or JSM Change / Service Request (e.g., `ITH-1`) and open the **CAB Quorum e-Sign & Rovo Release Ledger for Jira** panel.
 2. Verify the **Live Payload Fingerprint** (`SHA256(issueKey|summary|descriptionDigest|priority)`).
 3. Enter or confirm the mandatory **Meaning of Signature** attestation and click **Sign Stage N in Sequence**:
    - **Stage 1**: Engineering Lead — Code & Rollback Verified
@@ -36,7 +36,7 @@ If a user modifies the ticket's `summary`, `description`, or `priority` after an
 
 ---
 
-## 5. Exporting 21 CFR Part 11 Certificates & RFC-4180 CSV Ledgers (`CAB Release Ledger & 21 CFR Part 11 Certificates`)
-1. Navigate to **Project Sidebar -> CAB Release Ledger & 21 CFR Part 11 Certificates** (`jira:projectPage`).
+## 5. Exporting 21 CFR Part 11 Certificates & RFC-4180 CSV Ledgers (project page)
+1. Navigate to **Project Sidebar -> CAB Quorum e-Sign & Rovo Release Ledger for Jira** (`jira:projectPage`).
 2. Inspect the project-wide Merkle Release Ledger table.
 3. Click **View 21 CFR Part 11 Certificate** to inspect the full cryptographic chain (`Genesis -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 4`) or click **Export RFC-4180 CSV Ledger** for external audit submission.

@@ -15,5 +15,5 @@ Enforce ordered electronic signatures across Engineering Lead, QA Lead, Security
 ### Highlight 2: Real-Time 21 CFR Part 11 Payload-Drift Tamper Detection & Workflow Gate
 Computes a live SHA-256 fingerprint over issue summary, description digest, and priority. If anyone alters ticket scope after a CAB member signs off, the workflow validator immediately blocks release transitions (`BLOCKED_PAYLOAD_DRIFT_DETECTED`) and quarantines the issue.
 
-### Highlight 3: Rovo AI Pre-Flight Release Auditor & 21 CFR Part 11 Certificate Exporter
+### Highlight 3: Pre-Flight Release Audit & 21 CFR Part 11 Certificate Export
 Run a 6-point pre-flight audit checking scope completeness, rollback runbooks, child subtasks, open blockers, payload drift, and Merkle quorum progress. Export verifiable 21 CFR Part 11 Cryptographic Release Certificates and formula-safe RFC-4180 CSV ledgers in 1 click.

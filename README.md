@@ -2,10 +2,10 @@
 
 **Enterprise Sequential 4-Role Merkle-Chained SHA-256 Quorum Matrix, 21 CFR Part 11 Payload-Drift Tamper Detection, Rovo AI Release Readiness Auditor, Workflow Transition Gate & Cryptographic Compliance Certificate Exporter for Jira & Jira Service Management**
 
-- **Vendor**: EvidencePair LLC (`support@titlecovenant.com`)
+- **Vendor**: EvidencePair LLC (support: <https://evidencepair.com/support/>, support@evidencepair.com)
 - **App ID**: `ari:cloud:ecosystem::app/48e50169-f4f6-49d5-8bca-b13911169555`
 - **App Key**: `com.evidencepair.jira.cab.quorum.ledger`
-- **Runtime**: Atlassian Forge `nodejs24.x` (100% *Runs on Atlassian* — Zero external egress, Zero Forge SQL/KVS)
+- **Runtime**: Atlassian Forge `nodejs24.x` (no external egress, no Forge SQL or KVS)
 - **Supported Products**: Jira Cloud & Jira Service Management Cloud
 
 ---
@@ -37,6 +37,8 @@
 
 ## Documentation Index
 - [User & Administrator Guide](./USER_GUIDE.md)
+- [Privacy Policy](./PRIVACY_POLICY.md)
+- [Security](./SECURITY.md)
 - [Privacy, Security & Zero-Egress Architecture](./PRIVACY_AND_SECURITY.md)
 - [End-User License Agreement (EULA)](./EULA.md)
 - [Marketplace Listing Copy](./LISTING_COPY.md)
