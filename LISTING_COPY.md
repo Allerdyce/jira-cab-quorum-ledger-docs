@@ -2,7 +2,7 @@
 
 - **App Name (48 chars)**: `CAB Quorum e-Sign & Rovo Release Ledger for Jira`
 - **App Key**: `com.evidencepair.jira.cab.quorum.ledger`
-- **Tagline / Summary**: Sequential 4-role Merkle SHA-256 CAB e-Signatures, 21 CFR Part 11 payload-drift tamper lock, Rovo readiness audit & workflow gate.
+- **Tagline / Summary**: Sequential 4-role Merkle SHA-256 CAB e-Signatures, 21 CFR Part 11 payload-drift tamper lock, pre-flight release readiness audit & workflow gate.
 - **Categories**: Change Management, Security & Compliance, Workflow & Automation, IT & Helpdesk
 
 ---

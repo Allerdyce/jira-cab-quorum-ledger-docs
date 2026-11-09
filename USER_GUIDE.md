@@ -24,7 +24,7 @@
    - **Stage 2**: QA & Automated Test Lead — Regression Passed
    - **Stage 3**: Security & Compliance Officer — SAST/SCA & Zero PII Leak
    - **Stage 4**: CAB Chair — Production Release Authorized
-4. Click **Run Rovo AI Pre-Flight Audit** to compute the 6-point Release Readiness Score (`0–100%`) and apply the `rovo-cab-verified` label.
+4. Click **Run Rovo AI Pre-Flight Audit** to compute the 6-point Release Readiness Score (`0–100%`) and apply the `rovo-cab-verified` label. The audit is a fixed set of rule checks; it makes no AI or Rovo call.
 
 ---
 

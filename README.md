@@ -1,6 +1,6 @@
 # CAB Quorum e-Sign & Rovo Release Ledger for Jira
 
-**Enterprise Sequential 4-Role Merkle-Chained SHA-256 Quorum Matrix, 21 CFR Part 11 Payload-Drift Tamper Detection, Rovo AI Release Readiness Auditor, Workflow Transition Gate & Cryptographic Compliance Certificate Exporter for Jira & Jira Service Management**
+**Enterprise Sequential 4-Role Merkle-Chained SHA-256 Quorum Matrix, 21 CFR Part 11 Payload-Drift Tamper Detection, Pre-Flight Release Readiness Audit, Workflow Transition Gate & Cryptographic Compliance Certificate Exporter for Jira & Jira Service Management**
 
 - **Vendor**: EvidencePair LLC (support: <https://evidencepair.com/support/>, support@evidencepair.com)
 - **App ID**: `ari:cloud:ecosystem::app/48e50169-f4f6-49d5-8bca-b13911169555`
@@ -25,7 +25,8 @@
      `SHA256(issueKey + "|" + summary + "|" + descriptionDigest + "|" + priority)`
    - Recomputes the entire Merkle chain on every issue load and workflow transition. If ticket scope (`summary`, `description`, or `priority`) is altered after any CAB signature, the ledger immediately flags `BLOCKED_PAYLOAD_DRIFT_DETECTED` and quarantines the release.
 
-3. **Rovo AI Release Readiness Pre-Flight Auditor**
+3. **Pre-Flight Release Readiness Audit**
+   - The panel's button is labelled **Run Rovo AI Pre-Flight Audit**, but the audit is a fixed set of rule checks. It makes no AI or Rovo call and sends no data anywhere.
    - Executes a deterministic 6-point pre-flight release readiness audit across ticket scope completeness, rollback runbook verification, child subtask completion, linked open blockers, zero payload drift, and sequential CAB quorum progress (`0–100%` Readiness Score).
    - Automatically applies Jira issue labels (`rovo-cab-verified` or `cab-drift-quarantined`).
 
